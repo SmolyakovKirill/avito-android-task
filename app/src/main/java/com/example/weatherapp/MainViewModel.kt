@@ -1,4 +1,10 @@
 package com.example.weatherapp
 
-class MainViewModel {
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.weatherapp.adapters.WeatherModel
+
+class MainViewModel : ViewModel() {
+    val livaDataCurrent = MutableLiveData<WeatherModel>()
+    val liveDataList = MutableLiveData<List<WeatherModel>>()
 }

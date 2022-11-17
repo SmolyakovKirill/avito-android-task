@@ -7,18 +7,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.databinding.DayListItemBinding
 import com.example.weatherapp.databinding.HourListItemBinding
+import com.squareup.picasso.Picasso
 
-class WeatherAdapter : ListAdapter<WeatherModel, WeatherAdapter.Holder>(Comparator()){
+class HourWeatherAdapter : ListAdapter<WeatherModel, HourWeatherAdapter.Holder>(Comparator()){
 
     class Holder(view: View) : RecyclerView.ViewHolder(view){
         val binding = HourListItemBinding.bind(view)
 
         fun bind(item: WeatherModel) = with(binding){
-            tvDate.text = item.time
-            tvFeels.text = item.condition
-            tvTemp.text = item.currentTemp
+            tvDate.text = item.time.takeLast(5)
+            tvFeels.text = "RealFeel: ${item.realFeelTemp}°С"
+            tvTemp.text = "Temp: ${item.currentTemp}°С"
+            Picasso.get().load("https:" + item.imageUrl).into(imageHourWeather)
         }
     }
 

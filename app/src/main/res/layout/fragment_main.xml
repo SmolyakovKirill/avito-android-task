@@ -4,32 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    android:background="#6F509AF3"
+    tools:context=".fragments.MainFragment">
 
-    <ImageView
-        android:id="@+id/backgroundImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:id="@+id/layoutDays"
+        android:layout_width="350dp"
+        android:layout_height="110dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/currDayCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/daysRecycleView"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/backgroundColor"
-        app:layout_constraintBottom_toTopOf="@+id/currDayCard"
-        app:layout_constraintEnd_toEndOf="@+id/searchView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/searchView"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"></LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchView"
@@ -68,6 +54,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ibLocation"
                 app:layout_constraintStart_toEndOf="@+id/ibSearch"
@@ -91,8 +78,10 @@
         android:id="@+id/currDayCard"
         android:layout_width="350dp"
         android:layout_height="175dp"
-        android:layout_marginTop="150dp"
-        android:backgroundTint="@color/backgroundColor"
+        android:layout_marginTop="170dp"
+        android:background="@color/backgroundColor"
+        android:backgroundTint="#5118355A"
+        app:cardBackgroundColor="#5118355A"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="@+id/searchView"
@@ -101,15 +90,18 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/purple_700"
+            android:backgroundTint="@color/backgroundColor">
 
             <ImageView
                 android:id="@+id/imWeather"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.462"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCity" />
 
@@ -117,32 +109,37 @@
                 android:id="@+id/ibRefresh"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
                 android:background="@null"
                 android:src="@drawable/ic_baseline_refresh_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvCondition" />
+                app:layout_constraintTop_toBottomOf="@+id/tvCondition"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tvCondition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="Condition"
+                android:textColor="@color/white"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.325"
+                app:layout_constraintEnd_toStartOf="@+id/tvFeelTemp"
+                app:layout_constraintHorizontal_bias="0.557"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imWeather"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.055" />
 
             <TextView
                 android:id="@+id/tvMaxMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="MinMaxTemp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.804"
+                app:layout_constraintHorizontal_bias="0.818"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCity" />
 
@@ -150,42 +147,47 @@
                 android:id="@+id/tvPressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginEnd="48dp"
+                android:text="Pressure"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.804"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvHumidity"
                 app:layout_constraintTop_toBottomOf="@+id/tvHumidity" />
 
             <TextView
                 android:id="@+id/tvWind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginEnd="72dp"
+                android:text="Wind"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.804"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvPressure"
                 app:layout_constraintTop_toBottomOf="@+id/tvPressure" />
 
             <TextView
                 android:id="@+id/tvFeelTemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/ibRefresh"
+                android:layout_marginEnd="44dp"
+                android:text="FeelTemp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.804"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWind"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvWind"
+                app:layout_constraintTop_toBottomOf="@+id/tvWind" />
 
             <TextView
                 android:id="@+id/tvHumidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Humidity"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.804"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvMaxMin"
                 app:layout_constraintTop_toBottomOf="@+id/tvMaxMin" />
 
             <TextView
@@ -193,32 +195,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="12dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/imWeather"
+                android:text="AvgTemp"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvCondition"
                 app:layout_constraintEnd_toStartOf="@+id/imWeather"
-                app:layout_constraintHorizontal_bias="0.854"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.984" />
+                app:layout_constraintVertical_bias="0.755" />
 
             <TextView
                 android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="City"
+                android:textColor="@color/white"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.325"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvMaxMin"
+                app:layout_constraintStart_toStartOf="@+id/tvCondition"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.153" />
+                app:layout_constraintVertical_bias="0.111" />
 
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Date"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/tvCity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.02"
@@ -230,16 +235,14 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hoursRecycleView"
-        android:layout_width="350dp"
-        android:layout_height="290dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/backgroundColor"
-        app:layout_constraintEnd_toEndOf="@+id/currDayCard"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/currDayCard"
-        app:layout_constraintTop_toBottomOf="@+id/currDayCard" />
+    <LinearLayout
+        android:id="@+id/layoutHours"
+        android:layout_width="352dp"
+        android:layout_height="320dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currDayCard"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

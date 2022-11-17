@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/backgroundColor">
+    app:cardBackgroundColor="@color/backgroundColor"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="350dp"
@@ -25,42 +27,40 @@
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="50dp"
-            android:layout_height="21dp"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
             android:text="Date"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintHorizontal_bias="0.035"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.517" />
+            app:layout_constraintVertical_bias="0.533" />
 
         <TextView
             android:id="@+id/tvTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
             android:text="Temp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageHourWeather"
-            app:layout_constraintHorizontal_bias="0.343"
+            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.483" />
+            app:layout_constraintVertical_bias="0.533" />
 
         <TextView
             android:id="@+id/tvFeels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="56dp"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
             android:text="FeelsTemp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageHourWeather"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvTemp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
+            app:layout_constraintVertical_bias="0.533" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
