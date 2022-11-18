@@ -37,6 +37,7 @@ import org.json.JSONObject
 
 
 const val API_KEY = "7d7df5c7b9e14ae29a3120205220511"
+const val dayNumber = "7"
 
 class MainFragment : Fragment() {
 
@@ -185,7 +186,7 @@ class MainFragment : Fragment() {
                 "&q=" +
                 city +
                 "&days=" +
-                "7" +
+                dayNumber +
                 "&aqi=no&alerts=no"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
