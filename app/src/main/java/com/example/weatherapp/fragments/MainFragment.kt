@@ -1,7 +1,6 @@
 package com.example.weatherapp.fragments
 
 import android.Manifest
-import android.R
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,13 +20,11 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.weatherapp.MainViewModel
-import com.example.weatherapp.adapters.DayWeatherAdapter
-import com.example.weatherapp.adapters.HourWeatherAdapter
+import com.example.weatherapp.R
 import com.example.weatherapp.adapters.WeatherModel
 import com.example.weatherapp.databinding.FragmentMainBinding
 import com.example.weatherapp.dialogManager
@@ -34,18 +33,12 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.squareup.picasso.Picasso
-import org.json.JSONArray
 import org.json.JSONObject
 
 
 const val API_KEY = "7d7df5c7b9e14ae29a3120205220511"
 
 class MainFragment : Fragment() {
-
-    private val fList = listOf(
-        HoursFragment.newInstance(),
-        DaysFragment.newInstance()
-    )
 
     private lateinit var fLocationClient: FusedLocationProviderClient
     private lateinit var binding: FragmentMainBinding
@@ -63,6 +56,7 @@ class MainFragment : Fragment() {
         val secondChildFragment: Fragment = DaysFragment()
         val transaction2: FragmentTransaction = childFragmentManager.beginTransaction()
         transaction2.replace(com.example.weatherapp.R.id.layoutDays, secondChildFragment).commit()
+
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,6 +69,7 @@ class MainFragment : Fragment() {
         getLocation()
     }
 
+
     override fun onResume() {
         super.onResume()
         checkLocation()
@@ -83,6 +78,34 @@ class MainFragment : Fragment() {
 
     private fun init() = with(binding){
         fLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        editTextCity.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_NEXT -> {
+                    requestWeatherData(editTextCity.text.toString())
+                    true
+                }
+                EditorInfo.IME_ACTION_DONE -> {
+                    requestWeatherData(editTextCity.text.toString())
+                    true
+                }
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    requestWeatherData(editTextCity.text.toString())
+                    true
+                }
+                else -> false
+            }
+        }
+
+        ibLocation.setOnClickListener {
+            checkLocation()
+        }
+        ibSearch.setOnClickListener {
+            requestWeatherData(editTextCity.text.toString())
+        }
+        ibRefresh.setOnClickListener {
+            requestWeatherData(tvCity.text.toString())
+        }
     }
 
     private fun permissionListener(){
@@ -135,7 +158,7 @@ class MainFragment : Fragment() {
 
     private fun updateCurrentCard() = with(binding){
         model.livaDataCurrent.observe(viewLifecycleOwner){
-            val maxMinTemp = "Max/Min:${it.maxTemp}/${it.minTemp}°C"
+            val maxMinTemp = "Max/Min: ${it.maxTemp}/${it.minTemp}°C"
             tvTime.text = it.time
             tvCity.text = it.city
             tvAvgTemp.text = "${it.currentTemp.ifEmpty { maxMinTemp }}°С"
@@ -143,9 +166,9 @@ class MainFragment : Fragment() {
             tvMaxMin.text = if (it.currentTemp.isEmpty()) "" else maxMinTemp
             Picasso.get().load("https:"+ it.imageUrl).into(imWeather)
             tvHumidity.text = "Humidity: ${it.humidity}%"
-            tvPressure.text = "Pressure: ${it.pressure}mb"
-            tvWind.text = "Wind: ${it.wind}kph"
-            tvFeelTemp.text = "RealFeel: ${it.realFeelTemp}°С"
+            tvPressure.text = if (it.pressure.isEmpty()) "" else "Pressure: ${it.pressure} mb"
+            tvWind.text = "Wind: ${it.wind} kph"
+            tvFeelTemp.text = if (it.realFeelTemp.isEmpty()) "" else "RealFeel: ${it.realFeelTemp}°С"
         }
     }
 
@@ -201,7 +224,11 @@ class MainFragment : Fragment() {
                 day.getJSONObject("day").getString("mintemp_c").toFloat().toInt().toString(),
                 day.getJSONObject("day").getJSONObject("condition")
                     .getString("icon"),
-                day.getJSONArray("hour").toString(),"", "", "", ""
+                day.getJSONArray("hour").toString(),
+                "",
+                day.getJSONObject("day").getString("avghumidity"),
+                "",
+                day.getJSONObject("day").getString("maxwind_kph")
             )
             list.add(item)
         }
