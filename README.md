@@ -8,4 +8,4 @@ Test weather application for avito-tech.start
 - [x] Возможность выбрать любой другой город, и узнать прогноз погоды в нем
 
 #### API
-В качестве API, для получения прогноза, можно использовать любой сервис; допускается использовался [Weather API](http://api.weatherapi.com)
+В качестве API, для получения прогноза использовался [Weather API](http://api.weatherapi.com)
