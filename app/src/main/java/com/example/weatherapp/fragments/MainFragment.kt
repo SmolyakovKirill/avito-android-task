@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
 
-const val API_KEY = "7d7df5c7b9e14ae29a3120205220511"
+const val API_KEY = "03d9472338044db1ad843059222011"
 const val dayNumber = "7"
 
 class MainFragment : Fragment() {
